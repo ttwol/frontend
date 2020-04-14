@@ -2,28 +2,43 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, Grid } from "@material-ui/core";
 
-import { useStyles } from "./Login.style";
+import { useStyles } from "./Register.style";
 
 import Button from "components/Button";
 import Input from "components/Input";
 
-const LoginScreen = ({ history }) => {
+const RegisterScreen = ({ history }) => {
   const classes = useStyles();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
-        <img alt="Logo do T2L" src="/assets/logo.png" className={classes.img} />
+        <img
+          alt="Logo do YourFreeTime"
+          src="/assets/logo.png"
+          className={classes.img}
+        />
         <form
-          onSubmit={e => {
+          onSubmit={async e => {
             e.preventDefault();
             history.push("/");
           }}
         >
           <Grid spacing={3} container>
+            <Grid item xs={12}>
+              <Input
+                id="name"
+                label="Name"
+                fullWidth
+                value={name}
+                onChange={e => setName(e.target.value)}
+              />
+            </Grid>
             <Grid item xs={12}>
               <Input
                 id="email"
@@ -43,13 +58,23 @@ const LoginScreen = ({ history }) => {
                 onChange={e => setPassword(e.target.value)}
               />
             </Grid>
+            <Grid item xs={12}>
+              <Input
+                id="confirm_password"
+                label="Confirmar Senha"
+                type="password"
+                fullWidth
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+              />
+            </Grid>
             <Grid item xs={12} style={{ display: "flex" }}>
-              <Button component={Link} to="/register" variant="contained">
-                Registre-se
+              <Button component={Link} to="/login" variant="contained">
+                Entrar
               </Button>
               <div style={{ flex: 1 }} />
               <Button type="submit" variant="contained" color="primary">
-                Entrar
+                Cadastrar
               </Button>
             </Grid>
           </Grid>
@@ -59,4 +84,4 @@ const LoginScreen = ({ history }) => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;
